@@ -1,0 +1,3 @@
+﻿  test.cpp
+D:\Git_C\My_Programm\Line_line\Line_line\Catenary.cpp(61): warning C4715: Chain_Line::CH_Line::setHeight: значение возвращается не при всех путях выполнения
+  Sample-Test3.vcxproj -> D:\Git_C\My_Programm\Line_line\Debug\Sample-Test3.exe
