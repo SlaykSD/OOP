@@ -2,7 +2,7 @@
 
 
 #include <iostream>
-#include "Catenary.h"
+#include "dialog.h"
 
 using namespace Chain_Line;
 const char* msgs[] = { "0. EXIT",

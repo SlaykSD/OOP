@@ -1,26 +1,21 @@
 #define _CRT_SECURE_NO_WARNINGS
 
-#include "Catenary.h"
+#include "dialog.h"
 #include <math.h>
 #include <iostream>
 
 namespace Chain_Line {
-	CH_Line::CH_Line(double ad)
+	CH_Line::CH_Line(double ad):x1(-1),x2(1)
 	{
 		if (ad <= 0)
 			throw std::exception("Invalid height");
 		a = ad;
-		CH_Line::p1.x = -1, CH_Line::p1.y = f(-1);
-		CH_Line::p2.x = 1, CH_Line::p2.y = f(1);
 	}
-	CH_Line::CH_Line(const double x1, const double x2, double ad)
+	CH_Line::CH_Line(const double x1, const double x2, double ad):x1(x1),x2(x2)
 	{
 		if (ad <= 0)
 			throw std::exception("Invalid height");
 		a = ad;
-		CH_Line::p1.x = x1, CH_Line::p1.y = f(x1);
-		CH_Line::p2.x = x2, CH_Line::p2.y = f(x2);
-		correct(CH_Line::p1, CH_Line::p2);
 	}
 	//Сеттеры
 	//Сделаем ввод по x
@@ -32,6 +27,17 @@ namespace Chain_Line {
 		return *this;
 	}
 
+	CH_Line& CH_Line::setX1(const double x1)
+	{
+		this->x1 = x1;
+		return *this;
+	}
+
+	CH_Line& CH_Line::setX2(const double x2)
+	{
+		this->x2 = x2;
+			return *this;
+	}
 	void CH_Line::correct(const Point& p1, const Point& p2)
 	{
 		if (p1.y < 0)
@@ -49,20 +55,18 @@ namespace Chain_Line {
 	double CH_Line::f(double x) const
 	{
 		//Y(x) = a *cosh( x/a)
-		return  CH_Line::a * (exp(x / CH_Line::a) + exp(-x / CH_Line::a)) / 2;
+		return  a * (exp(x /a) + exp(-x / a)) / 2;
 	}
 	CH_Line& CH_Line::setHeight(double a)
 	{
 		if (a <= 0)
 			throw std::exception("Invalid height");
 		CH_Line::a = a;
-		CH_Line::p1.y = f(CH_Line::p1.x);
-		CH_Line::p2.y = f(CH_Line::p2.x);
 	}
 	double CH_Line::L(double l)const
 	{
 		if (l <= 0)
-			throw std::exception("Invalid height");
+			throw std::exception("Invalid lenght");
 		return  CH_Line::a * (exp(l / 2 * CH_Line::a) - exp(-l / 2 * CH_Line::a));
 	}
 	double CH_Line::ch(double x) const
@@ -75,10 +79,10 @@ namespace Chain_Line {
 	}
 	double CH_Line::L2()const
 	{
-		if ((this->p1.x * this->p2.x) > 0)//По разные стороны
-			return a*sh(p1.x/a)+ a*sh(p2.x/a);
+		if ((x1*x2) > 0)//По разные стороны
+			return a*sh(x1/a)+ a*sh(x2/a);
 		else// По одну сторону
-			return abs(a * sh(p1.x / a) - a * sh(p2.x / a));
+			return abs(a * sh(x1 / a) - a * sh(x2 / a));
 	}
 	double CH_Line::R(double x)const
 	{
@@ -94,7 +98,7 @@ namespace Chain_Line {
 	}
 	double CH_Line::Integral(void)const
 	{
-		return a * a * (sh((p2.x) / a) - sh((p1.x) / a));// a^2(sh(x2/a)- sh(x1/a))
+		return a * a * (sh((x2) / a) - sh((x1) / a));// a^2(sh(x2/a)- sh(x1/a))
 	}
 	//Диалоговые Функции!
 
@@ -144,12 +148,12 @@ namespace Chain_Line {
 	}
 	int dialog_info(CH_Line& catenary)
 	{
-		Point p1, p2;
-		p1 = catenary.getP1();
-		p2 = catenary.getP2();
+		double x1,x2;
+		x1 = catenary.getX1();
+		x2 = catenary.getX2();
 		double height;
 		height = catenary.getHeight();
-		printf("Points: (%.2f,%.2f) and (%.2f,%.2f) ; Height this catenary: [%.2f]\n", p1.x, p1.y, p2.x, p2.y, height);
+		printf("Points: (%.2f,%.2f) and (%.2f,%.2f) ; Height this catenary: [%.2f]\n",x1,catenary.f(x1),x2, catenary.f(x2), height);
 		return 1;
 	}
 	int dialog_function(CH_Line& catenary)
@@ -167,11 +171,11 @@ namespace Chain_Line {
 	int dialog_lenght(CH_Line& catenary)
 	{
 		double L;//длинна нашей цепи
-		Point p,p1,p2;
-		p1 = catenary.getP1();
-		p2 = catenary.getP2();
+		double p,p1,p2;
+		p1 = catenary.getX1();
+		p2 = catenary.getX2();
 		double l;
-		if ((-1 == p1.x) && (1 == p2.x))
+		if ((-1 == p1) && (1 == p2))
 		{
 			//Предлагаем ввести длинну по x
 			std::cout << "Input proection lenght on the  x-axes" << std::endl;
@@ -255,7 +259,7 @@ namespace Chain_Line {
 				return 0;
 			}
 		} while (x1 == x2);
-		catenary.setPoints(x1, x2);
+		catenary.setX1(x1), catenary.setX2(x2);
 		return 1;
 	}
 }

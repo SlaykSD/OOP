@@ -14,6 +14,10 @@ namespace Chain_Line
 		CH_Line(const double x1, const double x2, double ad = 1);
 		CH_Line& setPoints(const double x1, const double x2);
 		CH_Line& setHeight(double a);
+		CH_Line& setX1(const double x1);
+		CH_Line& setX2(const double x2);
+		double getX1() const { return x1; }
+		double getX2() const { return x2; }
 		Point getP1() const { return p1; }
 		Point getP2() const { return p2; }
 		double getHeight() const { return a; }
@@ -26,6 +30,8 @@ namespace Chain_Line
 		double Integral()const;
 
 	private:
+		double x1;
+		double x2;
 		Point p1;
 		Point p2;
 		double a;
@@ -33,14 +39,4 @@ namespace Chain_Line
 		double sh(double)const;
 
 	};
-	int dialog_set(CH_Line&);
-	int dialog_info(CH_Line& );
-	int dialog_function(CH_Line&);
-	int dialog_lenght(CH_Line&);
-	int dialog_radius(CH_Line&);
-	int dialog_center(CH_Line&);
-	int dialog_integral(CH_Line&);
-	int dialog(const char*[], int);
-	int getN_Int(int* a);
-	int getDouble(double* a);
 }
