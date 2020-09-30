@@ -1,5 +1,4 @@
 ﻿  Catenary.cpp
-  Line_line.cpp
-  Создание кода...
-D:\Git_C\My_Programm\Line_line\Line_line\Catenary.cpp(61): warning C4715: Chain_Line::CH_Line::setHeight: значение возвращается не при всех путях выполнения
-  Line_line.vcxproj -> D:\Git_C\My_Programm\Line_line\Debug\Line_line.exe
+D:\Git_C\OOP\OOP\Line_line\Line_line\Catenary.cpp(174,10): warning C4101: p: неиспользованная локальная переменная
+D:\Git_C\OOP\OOP\Line_line\Line_line\Catenary.cpp(65): warning C4715: Chain_Line::CH_Line::setHeight: значение возвращается не при всех путях выполнения
+  Line_line.vcxproj -> D:\Git_C\OOP\OOP\Line_line\Debug\Line_line.exe

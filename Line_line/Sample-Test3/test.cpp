@@ -1,14 +1,14 @@
 
 #include "pch.h"
-#include "../Line_line/Catenary.cpp"
+#include "../Line_line/Catenary.h"
 
 TEST(CatenaryConstructor, DefaultConstructor) {
     Chain_Line::CH_Line line;
     Chain_Line::Point p;
     double a = 1;
     ASSERT_EQ(a, line.getHeight());
-    ASSERT_EQ(-1, line.getP1().x);
-    ASSERT_EQ(1, line.getP2().x);
+    ASSERT_EQ(-1, line.getX1());
+    ASSERT_EQ(1, line.getX2());
 }
 
 TEST(CatenaryConstructor, InitConstructors)
@@ -16,8 +16,8 @@ TEST(CatenaryConstructor, InitConstructors)
     Chain_Line::CH_Line a(2, 3, 1);
     Chain_Line::Point p(2, 3);
     Chain_Line::Point p0(3, 3);
-    ASSERT_EQ(p.x, a.getP1().x);
-    ASSERT_EQ(p0.x, a.getP2().x);
+    ASSERT_EQ(p.x, a.getX1());
+    ASSERT_EQ(p0.x, a.getX2());
     ASSERT_EQ(1, a.getHeight());
 }
 
